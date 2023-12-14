@@ -4,7 +4,7 @@ from setup import colours, fonts, screen
 from rgbmatrix import graphics
 
 # Setup
-BAR_STARTING_POSITION = (0, 18)
+BAR_STARTING_POSITION = (0, 20)
 BAR_PADDING = 2
 
 FLIGHT_NO_POSITION = (1, 21)
@@ -13,6 +13,8 @@ FLIGHT_NO_FONT = fonts.small
 
 FLIGHT_NUMBER_ALPHA_COLOUR = colours.BLUE
 FLIGHT_NUMBER_NUMERIC_COLOUR = colours.BLUE_LIGHT
+
+FLIGHT_ALTITUDE_COLOUR = colours.RED
 
 DATA_INDEX_POSITION = (52, 21)
 DATA_INDEX_TEXT_HEIGHT = 6
@@ -62,7 +64,19 @@ class FlightDetailsScene(object):
                     ch,
                 )
                 flight_no_text_length += ch_length
-
+                
+        # Altitude
+        if(self._data[self._data_index]["altitude"]):
+            altitude = self._data[self._data_index]["altitude"]
+            graphics.DrawText(
+                self.canvas,
+                fonts.extrasmall,
+                flight_no_text_length + BAR_PADDING,
+                FLIGHT_NO_POSITION[1] - 1,
+                FLIGHT_ALTITUDE_COLOUR,
+                f"{int(altitude * 0.3048)} M",
+            )
+        
         # Draw bar
         if len(self._data) > 1:
             # Clear are where N of M might have been
