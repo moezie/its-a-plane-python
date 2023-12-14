@@ -10,6 +10,23 @@ DAY_COLOUR = colours.PINK_DARK
 DAY_FONT = fonts.small
 DAY_POSITION = (2, 23)
 
+def DayOfWeek(isoDay):
+    if isoDay == 1:
+        return "Maandag"
+    elif isoDay == 2:
+        return "Dinsdag"
+    elif isoDay == 3:
+        return "Woensdag"
+    elif isoDay == 4:
+        return "Donderdag"
+    elif isoDay == 5:
+        return "Vrijdag"
+    elif isoDay == 6:
+        return "Zaterdag"
+    elif isoDay == 7:
+        return "Zondag"
+    else:
+        return "<Ongeldig>"
 
 class DayScene(object):
     def __init__(self):
@@ -26,7 +43,8 @@ class DayScene(object):
             # If there's no data to display
             # then draw the day
             now = datetime.now()
-            current_day = now.strftime("%A")
+            current_day = DayOfWeek(now.isoweekday())
+            
 
             # Only draw if time needs updated
             if self._last_day != current_day:
