@@ -74,7 +74,7 @@ class FlightDetailsScene(object):
                 flight_no_text_length + BAR_PADDING,
                 FLIGHT_NO_POSITION[1] - 1,
                 FLIGHT_ALTITUDE_COLOUR,
-                f"{int(altitude * 0.3048)} M",
+                f"{int(altitude * 0.3048)}",
             )
         
         # Draw bar
