@@ -12,9 +12,10 @@
 3. It is assumed the [solder bridge is added to the HAT](https://learn.adafruit.com/assets/57727) in order to use the Pi's soundcard to drive the device's PWM
 4. Clone this repository (`git clone https://github.com/ColinWaddell/its-a-plane-python`). 
 5. Install the FlightRadarAPI dependency (`sudo pip3 install FlightRadarAPI`). Note - running with `sudo` is required as `rgbmatrix` [must be run as as root](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/bindings/python#using-the-library) for best performance.
-6. Go to the its-a-plane-python repo folder `cd its-a-plane-python` (or wherever you cloned it to). 
-7. Add a config.py file as described below. 
-8. Run `sudo python3 its-a-plane.py`.
+6. Install the pytz dependency (`sudo pip3 install pytz`)
+7. Go to the its-a-plane-python repo folder `cd its-a-plane-python` (or wherever you cloned it to). 
+8. Add a config.py file as described below. 
+9. Run `sudo python3 its-a-plane.py`.
 
 
 ## Configuration
