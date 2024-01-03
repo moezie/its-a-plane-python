@@ -2,6 +2,8 @@ from FlightRadar24.api import FlightRadar24API
 from threading import Thread, Lock
 from time import sleep
 import math
+import datetime
+from pytz import timezone
 
 try:
     # Attempt to load config data
@@ -110,9 +112,29 @@ class Overhead:
                     except (KeyError, TypeError):
                         plane = ""
 
+                    # Get actual departure time
+                    try:
+                        #print(details["flightHistory"]["aircraft"][0]["time"]["real"]["departure"])
+                        unixAtd = details["time"]["real"]["departure"]
+                        tz = details["airport"]["origin"]["timezone"]["name"]
+                    except (KeyError, TypeError):
+                        unixAtd = 0
+                        tz = ""
+
                     # Tidy up what we pass along
                     plane = plane if not (plane.upper() in BLANK_FIELDS) else ""
+                    try:
+                        if(unixAtd > 0):
+                            dt = datetime.datetime.fromtimestamp(unixAtd)
+                            print(dt)
+                            atd = dt.astimezone(timezone("Europe/Amsterdam")).time().isoformat(timespec='minutes')
+                        else:
+                            atd = ""
+                    except Exception as e:
+                        atd = None
+                        print(e)
 
+                    print(atd)
                     origin = (
                         flight.origin_airport_iata
                         if not (flight.origin_airport_iata.upper() in BLANK_FIELDS)
@@ -139,6 +161,7 @@ class Overhead:
                             "vertical_speed": flight.vertical_speed,
                             "altitude": flight.altitude,
                             "callsign": callsign,
+                            "atd": atd
                         }
                     )
                     break
