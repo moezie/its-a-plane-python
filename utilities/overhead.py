@@ -126,15 +126,12 @@ class Overhead:
                     try:
                         if(unixAtd > 0):
                             dt = datetime.datetime.fromtimestamp(unixAtd)
-                            print(dt)
                             atd = dt.astimezone(timezone("Europe/Amsterdam")).time().isoformat(timespec='minutes')
                         else:
                             atd = ""
                     except Exception as e:
                         atd = None
-                        print(e)
 
-                    print(atd)
                     origin = (
                         flight.origin_airport_iata
                         if not (flight.origin_airport_iata.upper() in BLANK_FIELDS)
