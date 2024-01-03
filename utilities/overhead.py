@@ -121,6 +121,12 @@ class Overhead:
                         unixAtd = 0
                         tz = ""
 
+                    # Get estimated arrival time
+                    try:
+                        unixEat = details["time"]["estimated"]["arrival"]
+                    except(KeyError, TypeError):
+                        unixEat = 0
+
                     # Tidy up what we pass along
                     plane = plane if not (plane.upper() in BLANK_FIELDS) else ""
                     try:
@@ -130,7 +136,16 @@ class Overhead:
                         else:
                             atd = ""
                     except Exception as e:
-                        atd = None
+                        atd = ""
+
+                    try:
+                        if(unixEat > 0):
+                            dt = datetime.datetime.fromtimestamp(unixEat)
+                            eat = dt.astimezone(timezone("Europe/Amsterdam")).time().isoformat(timespec='minutes')
+                        else:
+                            eat = ""
+                    except Exception as e:
+                        eat = ""
 
                     origin = (
                         flight.origin_airport_iata
@@ -158,7 +173,8 @@ class Overhead:
                             "vertical_speed": flight.vertical_speed,
                             "altitude": flight.altitude,
                             "callsign": callsign,
-                            "atd": atd
+                            "atd": atd,
+                            "eat": eat
                         }
                     )
                     break
