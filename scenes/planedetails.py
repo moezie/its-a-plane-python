@@ -5,6 +5,7 @@ from setup import colours, fonts, screen
 
 # Setup
 PLANE_DETAILS_COLOUR = colours.PINK
+ATD_DETAILS_COLOUR = colours.ORANGE
 PLANE_DISTANCE_FROM_TOP = 30
 PLANE_TEXT_HEIGHT = 9
 PLANE_FONT = fonts.regular
@@ -24,6 +25,7 @@ class PlaneDetailsScene(object):
             return
 
         plane = f'{self._data[self._data_index]["plane"]}'
+        atd = f' {self._data[self._data_index]["atd"]}'
 
         # Draw background
         self.draw_square(
@@ -34,7 +36,7 @@ class PlaneDetailsScene(object):
             colours.BLACK,
         )
 
-        # Draw text
+        # Draw plain detail text
         text_length = graphics.DrawText(
             self.canvas,
             PLANE_FONT,
@@ -42,6 +44,17 @@ class PlaneDetailsScene(object):
             PLANE_DISTANCE_FROM_TOP,
             PLANE_DETAILS_COLOUR,
             plane,
+        )
+
+        # Draw Actual time departure text
+        atd_offset = text_length
+        text_length = text_length + graphics.DrawText(
+            self.canvas,
+            PLANE_FONT,
+            self.plane_position + atd_offset,
+            PLANE_DISTANCE_FROM_TOP,
+            ATD_DETAILS_COLOUR,
+            atd,
         )
 
         # Handle scrolling
